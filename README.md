@@ -16,6 +16,7 @@ This is a database-driven web application developed using PHP and MySQL. It allo
 - Access a personal dashboard
 - Add new projects
 - Edit their own projects
+- Delete their own projects
 
 ## Security Features
 This application includes several security measures:
