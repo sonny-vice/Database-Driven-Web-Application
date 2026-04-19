@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
+require_once 'includes/csrf.php';
 
 requireLogin();
 
@@ -22,6 +23,10 @@ require_once 'includes/header.php';
         <div class="success-box">
             <p>Project updated successfully.</p>
         </div>
+    <?php elseif ($_GET['success'] === 'deleted'): ?>
+        <div class="success-box">
+            <p>Project deleted successfully.</p>
+        </div>
     <?php endif; ?>
 <?php endif; ?>
 
@@ -37,9 +42,16 @@ require_once 'includes/header.php';
             <h2><?php echo htmlspecialchars($project['title']); ?></h2>
             <p><strong>Start Date:</strong> <?php echo htmlspecialchars($project['start_date']); ?></p>
             <p><strong>Phase:</strong> <?php echo htmlspecialchars($project['phase']); ?></p>
-            <p>
-                <a href="edit_project.php?pid=<?php echo $project['pid']; ?>">Edit Project</a>
-            </p>
+
+            <div class="project-actions">
+                <a href="edit_project.php?pid=<?php echo $project['pid']; ?>" class="button-link">Edit Project</a>
+
+                <form method="POST" action="delete_project.php" onsubmit="return confirm('Are you sure you want to delete this project?');">
+                    <input type="hidden" name="pid" value="<?php echo $project['pid']; ?>">
+                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generateCsrfToken()); ?>">
+                    <button type="submit" class="delete-button">Delete Project</button>
+                </form>
+            </div>
         </div>
     <?php endforeach; ?>
 <?php else: ?>
