@@ -1,3 +1,6 @@
+/* =========================
+   Global reset and base
+   ========================= */
 * {
     margin: 0;
     padding: 0;
@@ -11,12 +14,30 @@ body {
     line-height: 1.6;
 }
 
+/* Ensure form controls use the same font as the page */
+input,
+textarea,
+select,
+button {
+    font-family: inherit;
+}
+
+/* =========================
+   Layout
+   ========================= */
 .container {
     width: 90%;
     max-width: 1100px;
     margin: 0 auto;
 }
 
+main.container {
+    min-height: 70vh;
+}
+
+/* =========================
+   Header and navigation
+   ========================= */
 .site-header {
     background-color: #1f3c88;
     padding: 16px 0;
@@ -53,15 +74,21 @@ body {
     text-decoration: underline;
 }
 
-main.container {
-    min-height: 70vh;
-}
-
+/* =========================
+   Typography and headings
+   ========================= */
 .page-title {
     margin-bottom: 20px;
     font-size: 2rem;
 }
 
+.section-title {
+    margin-bottom: 15px;
+}
+
+/* =========================
+   Cards and content blocks
+   ========================= */
 .project-card {
     background: #fff;
     border-radius: 10px;
@@ -79,41 +106,26 @@ main.container {
     margin-bottom: 8px;
 }
 
-.site-footer {
-    background-color: #222;
-    color: #fff;
-    text-align: center;
-    padding: 18px 0;
-    margin-top: 40px;
+/* Project title links */
+.project-card h2 a {
+    color: #1f3c88;
+    text-decoration: none;
 }
 
+.project-card h2 a:hover {
+    text-decoration: underline;
+}
+
+/* Generic empty state box */
 .empty-message {
     background: #fff;
     padding: 20px;
     border-radius: 10px;
 }
 
-@media (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
-.project-card a {
-    color: #1f3c88;
-    text-decoration: none;
-}
-
-.project-card a:hover {
-    text-decoration: underline;
-}
-
+/* =========================
+   Search form
+   ========================= */
 .search-form {
     display: flex;
     flex-wrap: wrap;
@@ -145,7 +157,7 @@ main.container {
 }
 
 .search-form button:hover {
-    opacity: 0.95;
+    opacity: 0.92;
 }
 
 .clear-link {
@@ -156,6 +168,9 @@ main.container {
     font-weight: bold;
 }
 
+/* =========================
+   Forms
+   ========================= */
 .form-card {
     background: #fff;
     padding: 20px;
@@ -173,10 +188,13 @@ main.container {
     font-weight: bold;
 }
 
-.form-card input {
+.form-card input,
+.form-card textarea,
+.form-card select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    font-size: 1rem;
 }
 
 .form-card button {
@@ -189,6 +207,29 @@ main.container {
     cursor: pointer;
 }
 
+.form-card button:hover {
+    opacity: 0.92;
+}
+
+/* Focus state for better accessibility */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #1f3c88;
+}
+
+/* Error highlight added by JavaScript validation */
+input.error,
+textarea.error,
+select.error {
+    border-color: #c62828;
+    background-color: #fff5f5;
+}
+
+/* =========================
+   Messages and alerts
+   ========================= */
 .error-box {
     background: #ffe0e0;
     color: #900;
@@ -197,36 +238,25 @@ main.container {
     margin-bottom: 15px;
 }
 
-.dashboard-actions {
+.success-box {
+    background: #e6f7e6;
+    color: #1b5e20;
+    padding: 12px 15px;
+    border-left: 5px solid #2e7d32;
+    border-radius: 8px;
     margin-bottom: 20px;
 }
 
-.button-link {
-    display: inline-block;
-    background-color: #1f3c88;
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 16px;
+.info-box {
+    background: #e8f0fe;
+    color: #0d47a1;
+    padding: 12px 15px;
+    border-left: 5px solid #1565c0;
     border-radius: 8px;
-    font-weight: bold;
+    margin-bottom: 20px;
 }
 
-.button-link:hover {
-    opacity: 0.95;
-}
-
-.section-title {
-    margin-bottom: 15px;
-}
-
-.form-card textarea,
-.form-card select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-}
-
+/* Styled message box for invalid or denied pages */
 .message-box {
     background: #fff;
     border-left: 5px solid #c62828;
@@ -257,59 +287,116 @@ main.container {
     text-decoration: underline;
 }
 
-.success-box {
-    background: #e6f7e6;
-    color: #1b5e20;
-    padding: 12px 15px;
-    border-left: 5px solid #2e7d32;
-    border-radius: 8px;
+/* =========================
+   Buttons and dashboard
+   ========================= */
+.dashboard-actions {
     margin-bottom: 20px;
 }
 
-.info-box {
-    background: #e8f0fe;
-    color: #0d47a1;
-    padding: 12px 15px;
-    border-left: 5px solid #1565c0;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.project-card h2 a {
-    color: #1f3c88;
+/* Generic blue action button */
+.button-link {
+    display: inline-block;
+    background-color: #1f3c88;
+    color: #fff;
     text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
-.project-card h2 a:hover {
-    text-decoration: underline;
-}
-
-.form-card button:hover,
-.button-link:hover,
-.search-form button:hover {
+.button-link:hover {
     opacity: 0.92;
 }
 
-input,
-textarea,
-select,
-button {
-    font-family: inherit;
+/* =========================
+   Project action buttons
+   ========================= */
+.project-actions {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    flex-wrap: wrap;
+    margin-top: 10px;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border-color: #1f3c88;
+.project-actions form {
+    margin: 0;
 }
 
-input.error,
-textarea.error,
-select.error {
-    border-color: #c62828;
+/* Make Edit and Delete buttons look equal */
+.project-actions .button-link,
+.project-actions .delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    min-width: 140px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.2;
+    box-sizing: border-box;
+    text-decoration: none;
 }
 
-.empty-message .button-link {
-    margin-top: 12px;
+/* Edit button */
+.project-actions .button-link {
+    background-color: #1e88e5;
+    color: #fff;
+}
+
+/* Delete button */
+.project-actions .delete-button {
+    background-color: #c62828;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.project-actions .button-link:hover,
+.project-actions .delete-button:hover {
+    opacity: 0.95;
+}
+
+/* =========================
+   Footer
+   ========================= */
+.site-footer {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 18px 0;
+    margin-top: 40px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main.container {
+    flex: 1;
+}
+
+/* =========================
+   Responsive adjustments
+   ========================= */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
