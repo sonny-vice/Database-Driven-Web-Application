@@ -1,10 +1,11 @@
 <?php
-require_once 'includes/db.php';
-require_once 'includes/auth.php';
-require_once 'includes/csrf.php';
+require_once 'includes/db.php';     // Database connection
+require_once 'includes/auth.php';   // Login protection
+require_once 'includes/csrf.php';   // CSRF token functions
 
-requireLogin();
+requireLogin(); // Restrict page to logged-in users
 
+// Load projects belonging only to current user
 $stmt = $pdo->prepare("SELECT pid, title, start_date, phase FROM projects WHERE uid = ? ORDER BY start_date DESC");
 $stmt->execute([$_SESSION['uid']]);
 $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -15,6 +16,7 @@ require_once 'includes/header.php';
 <h2 class="page-title">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></h2>
 
 <?php if (isset($_GET['success'])): ?>
+    <!-- Show success messages after actions -->
     <?php if ($_GET['success'] === 'added'): ?>
         <div class="success-box">
             <p>Project added successfully.</p>
@@ -30,6 +32,7 @@ require_once 'includes/header.php';
     <?php endif; ?>
 <?php endif; ?>
 
+<!-- Quick action button -->
 <div class="dashboard-actions">
     <a href="add_project.php" class="button-link">Add New Project</a>
 </div>
@@ -45,7 +48,7 @@ require_once 'includes/header.php';
 
             <div class="project-actions">
                 <a href="edit_project.php?pid=<?php echo $project['pid']; ?>" class="button-link">Edit Project</a>
-
+                <!-- Delete project form with confirmation -->
                 <form method="POST" action="delete_project.php" onsubmit="return confirm('Are you sure you want to delete this project?');">
                     <input type="hidden" name="pid" value="<?php echo $project['pid']; ?>">
                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(generateCsrfToken()); ?>">
@@ -55,6 +58,7 @@ require_once 'includes/header.php';
         </div>
     <?php endforeach; ?>
 <?php else: ?>
+    <!-- Show message if user has no projects -->
     <div class="empty-message">
         <p>You have not added any projects yet. Use the “Add New Project” button to create your first project.</p>
     </div>
