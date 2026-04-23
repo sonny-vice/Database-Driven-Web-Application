@@ -1,6 +1,7 @@
 <?php
-require_once 'includes/db.php';
+require_once 'includes/db.php'; // Database connection
 
+// Validate project ID from URL
 if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
     require_once 'includes/header.php';
     echo '<div class="message-box">';
@@ -12,8 +13,10 @@ if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
     exit;
 }
 
+// Convert project ID to integer for safety
 $pid = (int) $_GET['pid'];
 
+// Load selected project and owner email using JOIN
 $stmt = $pdo->prepare("
     SELECT projects.title, projects.start_date, projects.end_date,
            projects.short_description, projects.phase, users.email
@@ -28,6 +31,7 @@ require_once 'includes/header.php';
 ?>
 
 <?php if ($project): ?>
+    <!-- Display project details if found -->
     <h2 class="page-title"><?php echo htmlspecialchars($project['title']); ?></h2>
 
     <div class="project-card">
@@ -41,6 +45,7 @@ require_once 'includes/header.php';
         <p><?php echo nl2br(htmlspecialchars($project['short_description'])); ?></p>
     </div>
 <?php else: ?>
+    <!-- Show message if project does not exist -->
     <div class="message-box">
         <h3>Project Not Found</h3>
         <p>The requested project does not exist.</p>
